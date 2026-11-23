@@ -30,29 +30,29 @@ class Club:
             raise UnknownEventError(title)
 
     def handle(self, line: str) -> str:
-        parts=[]
+        parts = []
         for piece in line.split(","):
             parts.append(piece.strip())
         if len(parts) != 3:
-            return "Sorry, I did not understand that."
-        command=parts[0].lower()
-        title=parts[1]
-        member=parts[2]
+            return f"Sorry, I don't understand '{line}'."
+        command = parts[0].lower()
+        title = parts[1]
+        member = parts[2]
         try:
-            chosen=self.event(title)
-            if command=="join":
-                place=chosen.sign_up(member)
-                if place=="seat":
+            chosen = self.event(title)
+            if command == "join":
+                place = chosen.sign_up(member)
+                if place == "seat":
                     return f"{member} has a seat at {title}."
                 return f"{member} is on the waitlist for {title}."
-            if command=="leave":
-                moved_up=chosen.cancel(member)
+            if command == "leave":
+                moved_up = chosen.cancel(member)
                 if moved_up is None:
-                    return f"Sorry, I don't understand '{line}'."
+                    return f"{member} left {title}."
                 return f"{member} left {title}. {moved_up} gets the seat."
         except SignupError as error:
             return f"Sorry, {error}."
-        return "Sorry, I did not understand that."
+        return f"Sorry, I don't understand '{line}'."
 
     def attendance(self) -> dict[str, int]:
         counts={}
