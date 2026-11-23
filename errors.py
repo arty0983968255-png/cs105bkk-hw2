@@ -17,7 +17,10 @@ class NotSignedUpError(SignupError):
 
 
 class AlreadySignedUpError(SignupError):
-    """The member already has a seat, or is already on the waitlist."""
+    def __init__(self, member: str, event: str):
+        super().__init__(f"{member} is already signed up for {event}")
+        self.member=member
+        self.event=event
 
     def __init__(self, member: str, event: str):
         """Give the parent the message, then keep member and event for whoever catches it."""
@@ -25,7 +28,9 @@ class AlreadySignedUpError(SignupError):
 
 
 class UnknownEventError(SignupError):
-    """The club has no event with this title."""
+    def __init__(self, title: str):
+        super().__init__(f"there is no event called {title}")
+        self.title=title
 
     def __init__(self, title: str):
         """Give the parent the message, then keep the title for whoever catches it."""
