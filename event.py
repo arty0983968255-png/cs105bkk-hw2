@@ -42,5 +42,8 @@ class Event:
         raise NotSignedUpError(member, self.title)
 
     def place(self, member: str) -> int:
-        """0 for a member with a seat, or their number on the waitlist, counting from 1."""
-        raise NotImplementedError("core: 0 for a seat, the waitlist number, or NotSignedUpError")
+        if member in self.seats:
+            return 0
+        if member in self.waitlist:
+            return self.waitlist.index(member)+1
+        raise NotSignedUpError(member, self.title)
