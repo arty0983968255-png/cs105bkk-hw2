@@ -19,10 +19,10 @@ class NotSignedUpError(SignupError):
 class AlreadySignedUpError(SignupError):
     def __init__(self, member: str, event: str):
         super().__init__(f"{member} is already signed up for {event}")
-        self.member=member
-        self.event=event
-
+        self.member = member
+        self.event = event
+        
 class UnknownEventError(SignupError):
     def __init__(self, title: str):
         super().__init__(f"there is no event called {title}")
-        self.title=title
+        self.title = title
