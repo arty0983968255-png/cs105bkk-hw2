@@ -22,16 +22,7 @@ class AlreadySignedUpError(SignupError):
         self.member=member
         self.event=event
 
-    def __init__(self, member: str, event: str):
-        """Give the parent the message, then keep member and event for whoever catches it."""
-        raise NotImplementedError("core: AlreadySignedUpError's message, member and event")
-
-
 class UnknownEventError(SignupError):
     def __init__(self, title: str):
         super().__init__(f"there is no event called {title}")
         self.title=title
-
-    def __init__(self, title: str):
-        """Give the parent the message, then keep the title for whoever catches it."""
-        raise NotImplementedError("core: UnknownEventError's message and title")
