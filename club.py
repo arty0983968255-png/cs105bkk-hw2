@@ -48,8 +48,8 @@ class Club:
             if command=="leave":
                 moved_up=chosen.cancel(member)
                 if moved_up is None:
-                    return f"{member} left {title}."
-                return f"{member} left {title}, and {moved_up} moves up from the waitlist."
+                    return f"Sorry, I don't understand '{line}'."
+                return f"{member} left {title}. {moved_up} gets the seat."
         except SignupError as error:
             return f"Sorry, {error}."
         return "Sorry, I did not understand that."
