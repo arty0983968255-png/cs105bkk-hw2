@@ -58,7 +58,7 @@ class Club:
         counts={}
         for chosen in self.events.values():
             for member in chosen.seats:
-                counts[member]=counts.get(member, 0) + 1
+                counts[member]=counts.get(member, 0)+1
         return counts
 
 if __name__ == "__main__":
