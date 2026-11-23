@@ -20,12 +20,26 @@ class Event:
         return self.capacity - len(self.seats)
 
     def sign_up(self, member: str) -> str:
-        """Give the member a seat and return "seat", or add them to the waitlist and return "waitlist"."""
-        raise NotImplementedError("core: give a seat or a waitlist place, or raise AlreadySignedUpError")
+        if member in self.seats or member in self.waitlist:
+            raise AlreadySignedUpError(member, self.title)
+        if self.seats_left()>0:
+            self.seats.append(member)
+            return "seat"
+        self.waitlist.append(member)
+        return "waitlist"
 
     def cancel(self, member: str) -> str | None:
-        """Take the member off the event. Return who moves up from the waitlist, or None."""
-        raise NotImplementedError("core: take the member off, and move the first waiting member up")
+        if member in self.seats:
+            self.seats.remove(member)
+            if len(self.waitlist)>0:
+                moved_up=self.waitlist.pop(0)
+                self.seats.append(moved_up)
+                return moved_up
+            return None
+        if member in self.waitlist:
+            self.waitlist.remove(member)
+            return None
+        raise NotSignedUpError(member, self.title)
 
     def place(self, member: str) -> int:
         """0 for a member with a seat, or their number on the waitlist, counting from 1."""
