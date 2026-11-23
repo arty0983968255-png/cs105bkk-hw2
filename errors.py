@@ -32,6 +32,4 @@ class UnknownEventError(SignupError):
         super().__init__(f"there is no event called {title}")
         self.title=title
 
-    def __init__(self, title: str):
-        """Give the parent the message, then keep the title for whoever catches it."""
-        raise NotImplementedError("core: UnknownEventError's message and title")
+
